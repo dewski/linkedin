@@ -28,12 +28,28 @@ module LinkedIn
         @position.xpath('./start-date/year').text.to_i
       end
 
+      def start_date
+        if !start_year.zero? && !start_month.zero? # Has start month and year
+          DateTime.new(start_year, start_month)
+        elsif !start_year.zero? && start_month.zero? # Only has start year
+          DateTime.new(start_year)
+        end
+      end
+
       def end_month
         @position.xpath('./end-date/month').text.to_i
       end
 
       def end_year
         @position.xpath('./end-date/year').text.to_i
+      end
+
+      def end_date
+        if !end_year.zero? && !end_month.zero? # Has end month and year
+          DateTime.new(end_year, end_month)
+        elsif !end_year.zero? && end_month.zero? # Only has end year
+          DateTime.new(end_year)
+        end
       end
 
       def company
